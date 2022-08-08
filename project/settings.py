@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DEBUG = config('DEBUG', cast=bool, default=False)
 SECRET_KEY = config('SECRET_KEY')
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*','projnutri.herokuapp.com']
 
 
 # Application definition
