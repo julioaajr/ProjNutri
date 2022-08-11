@@ -8,6 +8,7 @@ from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register(r'consumo', ConsumoViewSet)
+router.register(r'teste', testeViewSet)
 
 
 # Wire up our API using automatic URL routing.

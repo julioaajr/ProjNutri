@@ -7,3 +7,8 @@ class ConsumoSerializer(serializers.HyperlinkedModelSerializer):
         model = Consumo
         fields = ['id','url','refeicao','periodo','data_refeicao','created_at','created_by']
 
+class testeSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = teste
+        fields = '__all__'
+

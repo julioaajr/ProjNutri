@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+
+
 class Consumo (models.Model):
     #['refeicao','periodo','data_refeicao','created_at','created_by']
     PERIODO = (
@@ -14,3 +16,9 @@ class Consumo (models.Model):
     data_refeicao = models.DateTimeField(verbose_name="Data da Refeição")
     created_at = models.DateTimeField(auto_now=True, verbose_name="Criado em.")
     created_by = models.ForeignKey(User, models.DO_NOTHING, blank = True, null = True, related_name="createdbyclient", verbose_name="Criado por")
+
+
+class teste (models.Model):
+    #['refeicao','periodo','data_refeicao','created_at','created_by']
+    testeaa = models.TextField()
+    
