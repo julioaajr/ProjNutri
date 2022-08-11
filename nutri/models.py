@@ -1,6 +1,6 @@
 from django.db import models
-
-class Client (models.Model):
+from django.contrib.auth.models import User
+class refeicoes (models.Model):
     STATUS = (
         ('0', 'Manhã'),
         ('1', 'Tarde'),
