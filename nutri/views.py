@@ -13,10 +13,10 @@ def Index(request):
     return render(request, "index.html")
 
     
-class RefeicoesViewSet(viewsets.ModelViewSet):
+class ConsumoViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = refeicoes.objects.all()
-    serializer_class = RefeicoesSerializer
+    queryset = Consumo.objects.all()
+    serializer_class = ConsumoSerializer
     permission_classes = [permissions.IsAuthenticated]

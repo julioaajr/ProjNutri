@@ -7,7 +7,7 @@ from django.urls import include, path
 from rest_framework import routers
 
 router = routers.DefaultRouter()
-router.register(r'refeicoes', RefeicoesViewSet)
+router.register(r'consumo', ConsumoViewSet)
 
 
 # Wire up our API using automatic URL routing.

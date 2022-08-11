@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-class refeicoes (models.Model):
+class Consumo (models.Model):
     #['refeicao','periodo','data_refeicao','created_at','created_by']
     PERIODO = (
         ('0', 'Manhã'),
