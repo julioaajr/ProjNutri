@@ -22,11 +22,3 @@ class ConsumoViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
 
-
-class testeViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = teste.objects.all()
-    serializer_class = testeSerializer
-    permission_classes = [permissions.IsAuthenticated]

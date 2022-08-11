@@ -17,8 +17,4 @@ class Consumo (models.Model):
     created_at = models.DateTimeField(auto_now=True, verbose_name="Criado em.")
     created_by = models.ForeignKey(User, models.DO_NOTHING, blank = True, null = True, related_name="createdbyclient", verbose_name="Criado por")
 
-
-class teste (models.Model):
-    #['refeicao','periodo','data_refeicao','created_at','created_by']
-    testeaa = models.TextField()
     
