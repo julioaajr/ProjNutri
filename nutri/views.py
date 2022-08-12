@@ -4,6 +4,7 @@ from .models import *
 from .serializers import * 
 from rest_framework import viewsets
 from rest_framework import permissions
+import datetime
 
 def Index(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -23,5 +24,8 @@ class ConsumoViewSet(viewsets.ModelViewSet):
 
 def lista(request):
     context={}
-    context['lista'] = Consumo.objects.all()
+    if request.GET.get('date'):
+        context['lista'] = Consumo.objects.filter(data_refeicao__date = request.GET.get('date')).order_by("-data_refeicao__date","data_refeicao__time")
+    else:
+        context['lista'] = Consumo.objects.all().order_by("-data_refeicao__date","data_refeicao__time")
     return render(request, 'lista.html',context)
