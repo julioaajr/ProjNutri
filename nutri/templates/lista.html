@@ -19,73 +19,83 @@
 {% regroup lista by data_refeicao|date:"d/m/Y" as obd %}
 
 
-<body>
+<body style="background-color:rgb(214, 218, 218)">
 
     <div class="container-fluid mt-2 ">
- 
+
         <div class="row ml-auto">
-            <div class="col-3">
-            <div class="col-10">
+            <div class="col">
                 <form method="get" class="form-inline my-2 my-lg-0 mt-2" action="">
-                    <input class="form-control mr-sm-2" type="date" aria-label="date" name="date" value={{date}} autofocus>
+                    <input class="input-group date" type="date" aria-label="date" name="date">
                 </form>
+            </div>
+            <div class="col">
+                    <a href="{% url 'listaRefeicao' %}" class="btn btn-success">Limpar Filtro</a>
+            </div>
+            <div class="col">
+                <a href="{% url 'inserirRefeicao' %}" class="btn btn-primary">Adicionar Refeição</a>
             </div>
         </div>
         <hr class="mt-1 mb-0">
-        {%for dt in obd%}    
-         <div class="row">
+        {%for dt in obd%}
+        <div class="row">
             <div class="col-auto">
                 <p class="fw-bold"><br>{{dt.grouper}}</p>
             </div>
             {%for i in dt.list%}
             {%if i.periodo == '0'%}
             <div class="col-auto m-1 border border-1 border-dark rounded" style="background-color:rgb(146, 196, 206)">
-            {%endif%}
-            {%if i.periodo == '1'%}
-            <div class="col-auto m-1 border border-1 border-dark rounded" style="background-color:rgb(235, 216, 154)">
-            {%endif%}
-            {%if i.periodo == '2'%}
-            <div class="col-auto m-1 border border-1 border-dark rounded" style="background-color:rgba(54, 58, 240, 0.425)">
-            {%endif%}
-            {%if i.periodo == '3'%}
-            <div class="col-auto m-1 border border-1 border-dark rounded" style="background-color:rgb(152, 121, 207)">
-            {%endif%}
-            <p class="text-center mt-0 mb-0 fw-bold text-decoration-underline">{{i.data_refeicao|date:"H:i"}}</p>
-            <p class="mt-0 mb-0">{{i.refeicao|linebreaks}}</p>
-                
-            </div>
-            {%endfor%}
-        </div> 
-        <hr class="mt-0 mb-0">
-        {%empty%}
-        <p class="text-center mt-0 mb-0 fw-bold text-decoration-underline">Sem Refeições cadastradas para esse dia </p>
-        {%endfor%}
+                {%endif%}
+                {%if i.periodo == '1'%}
+                <div class="col-auto m-1 border border-1 border-dark rounded"
+                    style="background-color:rgb(235, 216, 154)">
+                    {%endif%}
+                    {%if i.periodo == '2'%}
+                    <div class="col-auto m-1 border border-1 border-dark rounded"
+                        style="background-color:rgba(54, 58, 240, 0.425)">
+                        {%endif%}
+                        {%if i.periodo == '3'%}
+                        <div class="col-auto m-1 border border-1 border-dark rounded"
+                            style="background-color:rgb(152, 121, 207)">
+                            {%endif%}
+                            <p class="text-center mt-0 mb-0 fw-bold text-decoration-underline">
+                                {{i.data_refeicao|date:"H:i"}}</p>
+                            <p class="mt-0 mb-0">{{i.refeicao|linebreaks}}</p>
+
+                        </div>
+                        {%endfor%}
+                    </div>
+                    <hr class="mt-0 mb-0">
+                    {%empty%}
+                    <p class="text-center mt-0 mb-0 fw-bold text-decoration-underline">Sem Refeições cadastradas para
+                        esse dia </p>
+                    {%endfor%}
 
 
-    </div>
+                </div>
 
-    
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-    crossorigin="anonymous"></script>
-    <script>
-        $('input[type=date]').change(function () {
-            this.form.submit();
-        });
-    
-        $('input[type=date]').keypress(function (e) {
-            $(this).off('change blur');
-    
-            $(this).blur(function () {
-                this.form.submit();
-            });
-    
-            if (e.keyCode === 13) {
-                this.form.submit();
-            }
-        });
-    
-    </script>
+
+                <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+                    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+                    crossorigin="anonymous"></script>
+                <script>
+                    $('input[type=date]').change(function () {
+                        this.form.submit();
+                    });
+
+                    $('input[type=date]').keypress(function (e) {
+                        $(this).off('change blur');
+
+                        $(this).blur(function () {
+                            this.form.submit();
+                        });
+
+                        if (e.keyCode === 13) {
+                            this.form.submit();
+                        }
+                    });
+
+                </script>
 </body>
 
 </html>

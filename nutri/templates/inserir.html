@@ -17,18 +17,35 @@
 </head>
 
 
-<body>
+<body style="background-color:rgb(214, 218, 218)">
 
     <div class="container mt-2 ">
+        <div class="row">
+            <div class="col-3">
+                <a href="{% url 'listaRefeicao' %}" class="btn btn-success">Ver Lista</a>
+            </div>
+        </div>
+        <hr>
         {% if message%}
-        <p>{{message}}</p>
+        <div class="row">
+            <p>{{message}}</p>
+            <div class="row">
+                <div class="col">
+                    <a href="{% url 'listaRefeicao' %}" class="btn btn-success">Ver lista</a>
+                </div>
+                <div class="col">
+                    <a href="{% url 'inserirRefeicao' %}" class="btn btn-primary">Adicionar Outro</a>
+                </div>
+            </div>
+            
+        </div>
         {%else%}
         <form action="" method="post">{% csrf_token %}
-            <div class="row">
+            <div class="row mt-2">
                 <label for="textrefeicao">First name:</label>
                 <textarea type="text" id="textrefeicao" name="textrefeicao"></textarea>
             </div>
-            <div class="row">
+            <div class="row mt-2">
                 <label for="datarefeicao">Last name:</label>
                 <input type="datetime-local" id="datarefeicao" name="datarefeicao"><br><br>
             </div>
