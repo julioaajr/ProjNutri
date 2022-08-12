@@ -21,4 +21,7 @@ class ConsumoViewSet(viewsets.ModelViewSet):
     serializer_class = ConsumoSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-
+def lista(request):
+    context={}
+    context['lista'] = Consumo.objects.all()
+    return render(request, 'lista.html',context)
