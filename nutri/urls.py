@@ -14,6 +14,7 @@ router.register(r'consumo', ConsumoViewSet)
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     path('', include(router.urls)),
-    path('lista/', lista, name ='lista'),
+    path('lista/', lista, name ='listaRefeicao'),
+    path('inserir/', inserir, name ='inserirRefeicao'),
     
 ]

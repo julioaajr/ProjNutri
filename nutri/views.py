@@ -29,3 +29,20 @@ def lista(request):
     else:
         context['lista'] = Consumo.objects.all().order_by("-data_refeicao__date","data_refeicao__time")
     return render(request, 'lista.html',context)
+
+
+def inserir(request):
+    context={}
+    context['message'] = ""
+    if request.method == 'POST':
+        print(request.POST.get('textrefeicao'))
+        print(request.POST.get('datarefeicao'))
+        consumo = Consumo()
+        consumo.refeicao = request.POST.get('textrefeicao')
+        consumo.data_refeicao =request.POST.get('datarefeicao')
+        consumo.save()
+        if consumo.id:
+            context['message'] += "\nREFEIÇÃO ADICIONADA COM SUCESSO"
+    
+
+    return render(request, "inserir.html",context)
