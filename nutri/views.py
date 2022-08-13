@@ -7,6 +7,8 @@ from rest_framework import viewsets
 from rest_framework import permissions
 import datetime as dt
 
+dateformat = "%Y-%m-%dT%H:%M"
+
 def Index(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     #meta = request.META
@@ -40,7 +42,7 @@ def inserir(request):
         print(type(request.POST.get('datarefeicao')))
         consumo = Consumo()
         consumo.refeicao = request.POST.get('textrefeicao')
-        dataref = dt.datetime.strptime(request.POST.get('datarefeicao'), "%Y-%m-%dT%H:%M")
+        dataref = dt.datetime.strptime(request.POST.get('datarefeicao'), dateformat)
         consumo.data_refeicao = dataref
         print(request.POST.get('datarefeicao'))
         print(consumo.data_refeicao.hour)
@@ -56,5 +58,6 @@ def inserir(request):
         consumo.save()
         if consumo.id:
             context['message'] += "\nREFEIÇÃO ADICIONADA COM SUCESSO"
+    context['now'] = dt.datetime.now().strftime(dateformat)
     
     return render(request, "inserir.html",context)
