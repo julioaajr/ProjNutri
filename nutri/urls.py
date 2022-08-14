@@ -16,5 +16,7 @@ urlpatterns = [
     path('', include(router.urls)),
     path('lista/', lista, name ='listaRefeicao'),
     path('inserir/', inserir, name ='inserirRefeicao'),
+    path('inserir/<int:pk>/', inserir, name ='editarRefeicao'),
+    path('deletar/<int:pk>/', deletar, name ='deletarRefeicao'),
     
 ]

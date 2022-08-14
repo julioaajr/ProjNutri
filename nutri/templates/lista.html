@@ -59,7 +59,11 @@
                             style="background-color:rgb(152, 121, 207)">
                             {%endif%}
                             <p class="text-center mt-0 mb-0 fw-bold text-decoration-underline">
-                                {{i.data_refeicao|date:"H:i"}}</p>
+                                {{i.data_refeicao|date:"H:i"}}
+                                 {% if request.user.is_authenticated %}
+                                <a href="{% url 'editarRefeicao' i.id %}" class="mt-0 mb-0">E</a>
+                                {%endif%}
+                            </p>
                             <p class="mt-0 mb-0">{{i.refeicao|linebreaks}}</p>
 
                         </div>

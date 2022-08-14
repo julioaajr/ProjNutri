@@ -16,5 +16,8 @@ class Consumo (models.Model):
     data_refeicao = models.DateTimeField(verbose_name="Data da Refeição")
     created_at = models.DateTimeField(auto_now=True, verbose_name="Criado em.")
     created_by = models.ForeignKey(User, models.DO_NOTHING, blank = True, null = True, related_name="createdbyclient", verbose_name="Criado por")
+    
+    def __str__(self):
+        return (f"{self.refeicao} \n {self.data_refeicao} \n {self.created_by}")
 
     

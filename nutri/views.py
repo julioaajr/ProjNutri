@@ -1,3 +1,5 @@
+from ast import Delete
+from django.shortcuts import redirect
 from xmlrpc.client import DateTime
 from django.shortcuts import render
 from django.http import request
@@ -25,6 +27,19 @@ class ConsumoViewSet(viewsets.ModelViewSet):
     serializer_class = ConsumoSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+def deletar(request,pk):
+    context={}
+    try:
+        consumo = Consumo.objects.get(id=pk)
+        context['obj'] = consumo
+        context['now'] = consumo.data_refeicao.strftime(dateformat)
+    except:
+        context['message'] += 'REFEIÇÃO NÃO ENCONTRADA'
+    if request.method == 'POST':
+        consumo.delete()
+    return redirect('listaRefeicao')
+
+
 def lista(request):
     context={}
     if request.GET.get('date'):
@@ -34,18 +49,31 @@ def lista(request):
     return render(request, 'lista.html',context)
 
 
-def inserir(request):
+def inserir(request,pk=0):
+    consumo = Consumo()
     context={}
     context['message'] = ""
+    context['now'] = dt.datetime.now().strftime(dateformat)
+    if pk != 0:
+        try:
+            consumo = Consumo.objects.get(id=pk)
+            context['obj'] = consumo
+            context['now'] = consumo.data_refeicao.strftime(dateformat)
+        except:
+            context['message'] += 'REFEIÇÃO NÃO ENCONTRADA'
+
+    if request.method == 'DELETE':
+        print('delete eeeee')
+        consumo.delete()
+        context['message'] += "\nOBJETO DELETADO"
+
+
     if request.method == 'POST':
-        print(request.POST.get('textrefeicao'))
-        print(type(request.POST.get('datarefeicao')))
-        consumo = Consumo()
+
         consumo.refeicao = request.POST.get('textrefeicao')
         dataref = dt.datetime.strptime(request.POST.get('datarefeicao'), dateformat)
         consumo.data_refeicao = dataref
-        print(request.POST.get('datarefeicao'))
-        print(consumo.data_refeicao.hour)
+        consumo.created_by = request.user
 
         if consumo.data_refeicao.hour >= 7 and consumo.data_refeicao.hour  < 12: 
             consumo.periodo=0
@@ -55,9 +83,8 @@ def inserir(request):
             consumo.periodo=2
         if consumo.data_refeicao.hour >= 0 and consumo.data_refeicao.hour  < 7: 
             consumo.periodo=3
+        
         consumo.save()
         if consumo.id:
             context['message'] += "\nREFEIÇÃO ADICIONADA COM SUCESSO"
-    context['now'] = dt.datetime.now().strftime(dateformat)
-    
     return render(request, "inserir.html",context)
