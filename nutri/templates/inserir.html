@@ -81,9 +81,11 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          {%if obj%}
           <form action="{% url 'deletarRefeicao' obj.id%}" method="post">{% csrf_token %}
                 <input class="btn btn-danger" type="submit" value="DELETAR">         
         </form>
+            {%endif%}
         </div>
       </div>
     </div>

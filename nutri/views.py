@@ -62,11 +62,6 @@ def inserir(request,pk=0):
         except:
             context['message'] += 'REFEIÇÃO NÃO ENCONTRADA'
 
-    if request.method == 'DELETE':
-        print('delete eeeee')
-        consumo.delete()
-        context['message'] += "\nOBJETO DELETADO"
-
 
     if request.method == 'POST':
 
