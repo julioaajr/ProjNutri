@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'nutri',
+    'user',
+    'pages',
     'rest_framework',
 ]
 

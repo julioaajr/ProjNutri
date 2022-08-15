@@ -13,7 +13,8 @@ router.register(r'consumo', ConsumoViewSet)
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    path('', include(router.urls)),
+    path('', HomeNutri ,name='homenutri'),
+    path('api/', include(router.urls)),
     path('lista/', lista, name ='listaRefeicao'),
     path('inserir/', inserir, name ='inserirRefeicao'),
     path('inserir/<int:pk>/', inserir, name ='editarRefeicao'),
