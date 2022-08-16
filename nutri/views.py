@@ -1,4 +1,5 @@
 from ast import Delete
+from gettext import NullTranslations
 from django.shortcuts import redirect
 from xmlrpc.client import DateTime
 from django.shortcuts import render
@@ -44,19 +45,30 @@ def deletar(request,pk):
     return redirect('listaRefeicao')
 
 
-def lista(request,pk=0):
+def lista(request):
     context={}
-    context['user'] = User.objects.all()
+    context['users'] = User.objects.all()
+    context['userdefault'] = User()
+    context['date']=""
 
-    if pk != 0:
-
-        if request.GET.get('date'):
-            context['lista'] = Consumo.objects.filter(created_by__id = pk ,data_refeicao__date = request.GET.get('date')).order_by("-data_refeicao__date","data_refeicao__time")
-        else:
-            context['lista'] = Consumo.objects.filter(created_by__id = pk).order_by("-data_refeicao__date","data_refeicao__time")
-
+    if (request.GET.get('date')):
+        context['date'] = request.GET.get('date')
     else:
+        context['date'] = dt.date.today().strftime('%Y-%m-%d')
+        date = dt.date.today().strftime('%d/%m/%Y')
 
+    try:
+        if request.GET.get('id_usuario'):
+            context['userdefault'] = User.objects.get(pk = request.GET.get('id_usuario'))
+    except:
+        pass
+
+    if context['userdefault'].id != None:
+        if request.GET.get('date'):
+            context['lista'] = Consumo.objects.filter(created_by = context['userdefault'] ,data_refeicao__date = request.GET.get('date')).order_by("-data_refeicao__date","data_refeicao__time")
+        else:
+            context['lista'] = Consumo.objects.filter(created_by = context['userdefault']).order_by("-data_refeicao__date","data_refeicao__time")
+    else:
         if request.GET.get('date'):
             context['lista'] = Consumo.objects.filter(data_refeicao__date = request.GET.get('date')).order_by("-data_refeicao__date","data_refeicao__time")
         else:

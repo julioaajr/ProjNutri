@@ -12,41 +12,29 @@
 
 {% block content %}
 
-<div class="row ml-auto">
-    <div class="col-10">
-        <form method="get" class="form-inline my-2 my-lg-0 mt-2" action="">
-            <select class="form-control mr-3" name="id_professional" id="id_professional" onchange="this.form.submit()">
-                {% for prof in user%}
-                        <option value={{prof.id}}>{{prof}}</option>
-                {% endfor %}
-            </select>
-
-        </form>
-    </div>
-    <!-- <div class="col-sm">
-        <form method="get" class="form-inline my-2 my-lg-0 mt-2" action="">
-            <button class="btn btn-outline-success my-2 my-sm-0 btn-sm" value="2022-01-01" name="date" type="submit">Procurar </button>
-        </form>
-    </div> -->
-    <div class="col-2">
-        <a href=""
-            class="btn btn-success">Encaixe</a>
-    </div>
-</div>
-
-
 {% regroup lista by data_refeicao|date:"d/m/Y" as obd %}
 <div class="container-fluid mt-2 ">
 
     <div class="row ml-auto">
-        <div class="col-auto">
-            <form method="get" class="form-inline my-2 my-lg-0 mt-2" action="">
-                <input class="" type="date" aria-label="date" name="date">
-            </form>
-        </div>
-        <div class="col-auto">
-            <a href="{% url 'listaRefeicao' %}" class="btn btn-success btn-sm">Limpar Filtro</a>
-        </div>
+        <form method="get" class="row gy-2 gx-3 align-items-center" action="">
+            <div class="col-auto">
+                <input class="form-control" type="date" aria-label="date" name="date" value={{date}} >
+            </div>
+            <div class="col-auto">
+                <select class="form-select" name="id_usuario" id="id_usuario" onchange="this.form.submit()">
+                    {% for u in users%}
+                    {%if u.id == userdefault.id%}
+                        <option value={{u.id}} selected>{{u}}</option>
+                    {%else%}
+                        <option value={{u.id}}>{{u}}</option>
+                    {%endif%}
+                    {% endfor %}
+                </select> 
+            </div>
+            <div class="col-auto">
+                <a href="{% url 'listaRefeicao' %}" class="form-control btn btn-success btn-sm">Limpar Filtro</a>
+            </div>
+        </form>
     </div>
     <hr class="mt-1 mb-0">
     {%for dt in obd%}
@@ -98,6 +86,7 @@
 
 
             <script>
+
                 $('input[type=date]').change(function () {
                     this.form.submit();
                 });
