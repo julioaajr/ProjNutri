@@ -144,3 +144,5 @@ LOGIN_URL = 'login'
 LOGOUT_REDIRECT_URL = 'login'
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+#teste#
