@@ -9,6 +9,7 @@ from rest_framework import viewsets
 from rest_framework import permissions
 import datetime as dt
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 dateformat = "%Y-%m-%dT%H:%M"
 
@@ -26,7 +27,7 @@ class ConsumoViewSet(viewsets.ModelViewSet):
     """
     queryset = Consumo.objects.all()
     serializer_class = ConsumoSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAuthenticated]
 
 
 @login_required
@@ -45,6 +46,8 @@ def deletar(request,pk):
 
 def lista(request,pk=0):
     context={}
+    context['user'] = User.objects.all()
+
     if pk != 0:
 
         if request.GET.get('date'):
