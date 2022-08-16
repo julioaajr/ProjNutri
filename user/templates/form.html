@@ -1,0 +1,28 @@
+{% extends 'template.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+<title>Login</title>
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <h3>Login</h3>
+    <p class="lead"> Informar dados</p>
+    <hr>
+    <form action="" method="post">
+        {% csrf_token %}
+
+        {{ form|crispy }}
+        <hr>
+        <button type="submit" class="btn btn-primary">Entrar</button>
+        <a href="">Esqueci minha senha</a>
+
+    </form>
+</div>
+
+{% endblock %}
+

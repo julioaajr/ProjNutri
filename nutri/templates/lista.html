@@ -1,105 +1,98 @@
-<!doctype html>
-<html lang="pt-br">
+{% extends 'template.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+{% block title %}
+<title>Login</title>
+{% endblock %}
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+{% block navbar %}
+{% endblock navbar %}
 
-    <title>Lista de Refeições</title>
-</head>
+
+{% block content %}
 
 {% regroup lista by data_refeicao|date:"d/m/Y" as obd %}
+<div class="container-fluid mt-2 ">
 
-
-<body style="background-color:rgb(214, 218, 218)">
-
-    <div class="container-fluid mt-2 ">
-
-        <div class="row ml-auto">
-            <div class="col-4 mx-auto">
-                <form method="get" class="form-inline my-2 my-lg-0 mt-2" action="">
-                    <input class="" type="date" aria-label="date" name="date">
-                </form>
-            </div>
-            <div class="col-4 mx-auto">
-                    <a href="{% url 'listaRefeicao' %}" class="btn btn-success">Limpar Filtro</a>
-            </div>
-            <div class="col-4 ">
-                <a href="{% url 'inserirRefeicao' %}" class="btn btn-primary">Adicionar Refeição</a>
-            </div>
+    <div class="row ml-auto">
+        <div class="col-auto">
+            <form method="get" class="form-inline my-2 my-lg-0 mt-2" action="">
+                <input class="" type="date" aria-label="date" name="date">
+            </form>
         </div>
-        <hr class="mt-1 mb-0">
-        {%for dt in obd%}
-        <div class="row">
-            <div class="col-auto">
-                <p class="fw-bold"><br>{{dt.grouper}}</p>
-            </div>
-            {%for i in dt.list%}
-            {%if i.periodo == '0'%}
-            <div class="col-auto m-1 border border-1 border-dark rounded" style="background-color:rgb(146, 196, 206)">
+        <div class="col-auto">
+            <a href="{% url 'listaRefeicao' %}" class="btn btn-success btn-sm">Limpar Filtro</a>
+        </div>
+    </div>
+    <hr class="mt-1 mb-0">
+    {%for dt in obd%}
+    <div class="row">
+        <div class="col-auto">
+            <p class="fw-bold"><br>{{dt.grouper}}</p>
+        </div>
+        {%for i in dt.list%}
+        {%if i.periodo == '0'%}
+
+        <div class="col-auto m-1 border border-1 border-dark rounded" style="background-color:rgb(146, 196, 206)">
+            {%endif%}
+            {%if i.periodo == '1'%}
+            <div class="col-auto m-1 border border-1 border-dark rounded" style="background-color:rgb(235, 216, 154)">
                 {%endif%}
-                {%if i.periodo == '1'%}
-                <div class="col-auto m-1 border border-1 border-dark rounded"
-                    style="background-color:rgb(235, 216, 154)">
+                {%if i.periodo == '2'%}
+                <div class="col-auto m-1 border border-1 border-dark rounded" style="background-color:rgba(54, 58, 240, 0.425)">
                     {%endif%}
-                    {%if i.periodo == '2'%}
-                    <div class="col-auto m-1 border border-1 border-dark rounded"
-                        style="background-color:rgba(54, 58, 240, 0.425)">
+                    {%if i.periodo == '3'%}
+                    <div class="col-auto m-1 border border-1 border-dark rounded" style="background-color:rgb(152, 121, 207)">
                         {%endif%}
-                        {%if i.periodo == '3'%}
-                        <div class="col-auto m-1 border border-1 border-dark rounded"
-                            style="background-color:rgb(152, 121, 207)">
+                        <p class="text-center mt-0 mb-0">{{i.created_by.first_nome}}</p>
+                        <hr class="mt-0 mb-0">
+                        <p class="text-center mt-0 mb-0 fw-bold text-decoration-underline">
+                            {{i.data_refeicao|date:"H:i"}}
+                            {% if request.user.is_authenticated %}
+                            <a href="{% url 'editarRefeicao' i.id %}" class="mt-0 mb-0">E</a>
                             {%endif%}
-                            <p class="text-center mt-0 mb-0 fw-bold text-decoration-underline">
-                                {{i.data_refeicao|date:"H:i"}}
-                                 {% if request.user.is_authenticated %}
-                                <a href="{% url 'editarRefeicao' i.id %}" class="mt-0 mb-0">E</a>
-                                {%endif%}
-                            </p>
-                            <p class="mt-0 mb-0">{{i.refeicao|linebreaks}}</p>
+                        </p>
+                        <p class="mt-0 mb-0">{{i.refeicao|linebreaks}}</p>
 
-                        </div>
-                        {%endfor%}
+
                     </div>
-                    <hr class="mt-0 mb-0">
-                    {%empty%}
-                    <p class="text-center mt-0 mb-0 fw-bold text-decoration-underline">Sem Refeições cadastradas para
-                        esse dia </p>
                     {%endfor%}
-
-
                 </div>
+                <hr class="mt-0 mb-0">
+                {%empty%}
+                <p class="text-center mt-0 mb-0 fw-bold text-decoration-underline">Sem Refeições cadastradas para
+                    esse dia </p>
+                {%endfor%}
 
 
-                <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-                    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-                    crossorigin="anonymous"></script>
-                <script>
-                    $('input[type=date]').change(function () {
+            </div>
+
+
+            <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+                integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+                crossorigin="anonymous"></script>
+
+
+            <script>
+                $('input[type=date]').change(function () {
+                    this.form.submit();
+                });
+
+                $('input[type=date]').keypress(function (e) {
+                    $(this).off('change blur');
+
+                    $(this).blur(function () {
                         this.form.submit();
                     });
 
-                    $('input[type=date]').keypress(function (e) {
-                        $(this).off('change blur');
+                    if (e.keyCode === 13) {
+                        this.form.submit();
+                    }
+                });
 
-                        $(this).blur(function () {
-                            this.form.submit();
-                        });
 
-                        if (e.keyCode === 13) {
-                            this.form.submit();
-                        }
-                    });
+            </script>
 
-                </script>
-</body>
 
-</html>
+            {% endblock %}

@@ -8,6 +8,7 @@ from .serializers import *
 from rest_framework import viewsets
 from rest_framework import permissions
 import datetime as dt
+from django.contrib.auth.decorators import login_required
 
 dateformat = "%Y-%m-%dT%H:%M"
 
@@ -27,6 +28,8 @@ class ConsumoViewSet(viewsets.ModelViewSet):
     serializer_class = ConsumoSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+
+@login_required
 def deletar(request,pk):
     context={}
     try:
@@ -40,15 +43,24 @@ def deletar(request,pk):
     return redirect('listaRefeicao')
 
 
-def lista(request):
+def lista(request,pk=0):
     context={}
-    if request.GET.get('date'):
-        context['lista'] = Consumo.objects.filter(data_refeicao__date = request.GET.get('date')).order_by("-data_refeicao__date","data_refeicao__time")
+    if pk != 0:
+
+        if request.GET.get('date'):
+            context['lista'] = Consumo.objects.filter(created_by__id = pk ,data_refeicao__date = request.GET.get('date')).order_by("-data_refeicao__date","data_refeicao__time")
+        else:
+            context['lista'] = Consumo.objects.filter(created_by__id = pk).order_by("-data_refeicao__date","data_refeicao__time")
+
     else:
-        context['lista'] = Consumo.objects.all().order_by("-data_refeicao__date","data_refeicao__time")
+
+        if request.GET.get('date'):
+            context['lista'] = Consumo.objects.filter(data_refeicao__date = request.GET.get('date')).order_by("-data_refeicao__date","data_refeicao__time")
+        else:
+            context['lista'] = Consumo.objects.all().order_by("-data_refeicao__date","data_refeicao__time")
     return render(request, 'lista.html',context)
 
-
+@login_required
 def inserir(request,pk=0):
     consumo = Consumo()
     context={}
