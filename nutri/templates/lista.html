@@ -22,6 +22,7 @@
             </div>
             <div class="col-auto">
                 <select class="form-select" name="id_usuario" id="id_usuario" onchange="this.form.submit()">
+                    <option value="">Todos</option>
                     {% for u in users%}
                     {%if u.id == userdefault.id%}
                         <option value={{u.id}} selected>{{u}}</option>
@@ -56,7 +57,7 @@
                     {%if i.periodo == '3'%}
                     <div class="col-auto m-1 border border-1 border-dark rounded" style="background-color:rgb(152, 121, 207)">
                         {%endif%}
-                        <p class="text-center mt-0 mb-0">{{i.created_by.first_nome}}</p>
+                        <p class="text-center mt-0 mb-0">{{i.created_by.first_name}}</p>
                         <hr class="mt-0 mb-0">
                         <p class="text-center mt-0 mb-0 fw-bold text-decoration-underline">
                             {{i.data_refeicao|date:"H:i"}}

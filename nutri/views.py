@@ -50,12 +50,10 @@ def lista(request):
     context['users'] = User.objects.all()
     context['userdefault'] = User()
     context['date']=""
+    context['lista']=""
 
     if (request.GET.get('date')):
         context['date'] = request.GET.get('date')
-    else:
-        context['date'] = dt.date.today().strftime('%Y-%m-%d')
-        date = dt.date.today().strftime('%d/%m/%Y')
 
     try:
         if request.GET.get('id_usuario'):
@@ -64,15 +62,16 @@ def lista(request):
         pass
 
     if context['userdefault'].id != None:
-        if request.GET.get('date'):
-            context['lista'] = Consumo.objects.filter(created_by = context['userdefault'] ,data_refeicao__date = request.GET.get('date')).order_by("-data_refeicao__date","data_refeicao__time")
-        else:
-            context['lista'] = Consumo.objects.filter(created_by = context['userdefault']).order_by("-data_refeicao__date","data_refeicao__time")
+        context['lista'] = Consumo.objects.filter(created_by = context['userdefault'])
     else:
-        if request.GET.get('date'):
-            context['lista'] = Consumo.objects.filter(data_refeicao__date = request.GET.get('date')).order_by("-data_refeicao__date","data_refeicao__time")
-        else:
-            context['lista'] = Consumo.objects.all().order_by("-data_refeicao__date","data_refeicao__time")
+        context['lista'] = Consumo.objects.all()
+
+    if request.GET.get('date'):
+        context['lista'] = context['lista'].filter(data_refeicao__date = request.GET.get('date'))
+
+    if context['lista'] != "":
+        context['lista']= context['lista'].filter().order_by("-data_refeicao__date","data_refeicao__time")
+
     return render(request, 'lista.html',context)
 
 @login_required
