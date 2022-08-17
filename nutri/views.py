@@ -47,13 +47,14 @@ def deletar(request,pk):
 
 def lista(request):
     context={}
-    context['users'] = User.objects.all()
-    context['userdefault'] = User()
+    
+    context['users'] = User.objects.all() #lista de usuarios para escolher
+    context['userdefault'] = User() #usuario para manter o parametro selecionado
     context['date']=""
     context['lista']=""
 
     if (request.GET.get('date')):
-        context['date'] = request.GET.get('date')
+        context['date'] = request.GET.get('date') #
 
     try:
         if request.GET.get('id_usuario'):
@@ -104,8 +105,8 @@ def inserir(request,pk=0):
             consumo.periodo=2
         if consumo.data_refeicao.hour >= 0 and consumo.data_refeicao.hour  < 7: 
             consumo.periodo=3
-        
         consumo.save()
+
         if consumo.id:
             context['message'] += "\nREFEIÇÃO ADICIONADA COM SUCESSO"
     return render(request, "inserir.html",context)

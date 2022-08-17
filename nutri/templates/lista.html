@@ -3,7 +3,7 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-<title>Login</title>
+<title>Lista de Refeições</title>
 {% endblock %}
 
 {% block navbar %}
@@ -25,15 +25,24 @@
                     <option value="">Todos</option>
                     {% for u in users%}
                     {%if u.id == userdefault.id%}
-                        <option value={{u.id}} selected>{{u}}</option>
+                        <option value={{u.id}} selected>{{u.first_name}}</option>
                     {%else%}
-                        <option value={{u.id}}>{{u}}</option>
+                        <option value={{u.id}}>{{u.first_name}}</option>
                     {%endif%}
                     {% endfor %}
                 </select> 
             </div>
             <div class="col-auto">
                 <a href="{% url 'listaRefeicao' %}" class="form-control btn btn-success btn-sm">Limpar Filtro</a>
+            </div>
+            <div class="col-auto">
+                {%if date%}
+                <p class="fw-bold">{{dt.grouper}}</p>
+                <p>Data: {{date|date:"d/m/Y"}}</p>
+                {%else%}
+                <p>Todo o periodo</p>
+                {%endif%}
+                <p></p>
             </div>
         </form>
     </div>
