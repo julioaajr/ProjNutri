@@ -12,7 +12,8 @@ import datetime as dt
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
-dateformat = "%Y-%m-%dT%H:%M"
+datetimeformat = "%Y-%m-%dT%H:%M"
+dateformat = "%Y-%m-%d"
 
 def HomeNutri(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -37,7 +38,7 @@ def deletar(request,pk):
     try:
         consumo = Consumo.objects.get(id=pk)
         context['obj'] = consumo
-        context['now'] = consumo.data_refeicao.strftime(dateformat)
+        context['now'] = consumo.data_refeicao.strftime(datetimeformat)
     except:
         context['message'] += 'REFEIÇÃO NÃO ENCONTRADA'
     if request.method == 'POST':
@@ -54,7 +55,8 @@ def lista(request):
     context['lista']=""
 
     if (request.GET.get('date')):
-        context['date'] = request.GET.get('date') #
+        context['date'] = request.GET.get('date')
+
 
     try:
         if request.GET.get('id_usuario'):
@@ -80,12 +82,12 @@ def inserir(request,pk=0):
     consumo = Consumo()
     context={}
     context['message'] = ""
-    context['now'] = dt.datetime.now().strftime(dateformat)
+    context['now'] = dt.datetime.now().strftime(datetimeformat)
     if pk != 0:
         try:
             consumo = Consumo.objects.get(id=pk)
             context['obj'] = consumo
-            context['now'] = consumo.data_refeicao.strftime(dateformat)
+            context['now'] = consumo.data_refeicao.strftime(datetimeformat)
         except:
             context['message'] += 'REFEIÇÃO NÃO ENCONTRADA'
 
@@ -93,7 +95,7 @@ def inserir(request,pk=0):
     if request.method == 'POST':
 
         consumo.refeicao = request.POST.get('textrefeicao')
-        dataref = dt.datetime.strptime(request.POST.get('datarefeicao'), dateformat)
+        dataref = dt.datetime.strptime(request.POST.get('datarefeicao'), datetimeformat)
         consumo.data_refeicao = dataref
         consumo.created_by = request.user
 

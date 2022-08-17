@@ -35,15 +35,6 @@
             <div class="col-auto">
                 <a href="{% url 'listaRefeicao' %}" class="form-control btn btn-success btn-sm">Limpar Filtro</a>
             </div>
-            <div class="col-auto">
-                {%if date%}
-                <p class="fw-bold">{{dt.grouper}}</p>
-                <p>Data: {{date|date:"d/m/Y"}}</p>
-                {%else%}
-                <p>Todo o periodo</p>
-                {%endif%}
-                <p></p>
-            </div>
         </form>
     </div>
     <hr class="mt-1 mb-0">
