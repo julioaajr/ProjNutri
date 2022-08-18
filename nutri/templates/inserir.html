@@ -62,6 +62,14 @@
           {%if obj%}
           <form action="{% url 'deletarRefeicao' obj.id%}" method="post" id="formdelete">{% csrf_token %}
             <input class="btn btn-success" type="submit" id="btn_deletar"  value="Deletar">
+            <script>
+            document.getElementById("btn_deletar").onclick = function () {
+            //disable
+              this.disabled = true;
+              this.form.submit();
+            }
+
+            </script>
                      
         </form>
             {%endif%}
@@ -70,17 +78,14 @@
     </div>
   </div>
   
-  {% block scripts%}
-  <script>
+    <script>
         document.getElementById("btn_submit").onclick = function () {
-            //disable
-            if document.getElementById("textrefeicao").value != "" %% document.getElementById("textrefeicao").value != ""{
-              this.disabled = true;
-              this.form.submit();
-            }
+          if ($("#textrefeicao").prop('value') != "" && $("#datarefeicao").prop('value') != "")  {
+            this.disabled = true;
+            this.form.submit();
+          }
         }
       </script>
-      {% endblock scripts %}
 
 
 
