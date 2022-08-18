@@ -57,7 +57,6 @@ def lista(request):
     if (request.GET.get('date')):
         context['date'] = request.GET.get('date')
 
-
     try:
         if request.GET.get('id_usuario'):
             context['userdefault'] = User.objects.get(pk = request.GET.get('id_usuario'))
@@ -76,6 +75,7 @@ def lista(request):
         context['lista']= context['lista'].filter().order_by("-data_refeicao__date","data_refeicao__time")
 
     return render(request, 'lista.html',context)
+
 
 @login_required
 def inserir(request,pk=0):
@@ -97,7 +97,8 @@ def inserir(request,pk=0):
         consumo.refeicao = request.POST.get('textrefeicao')
         dataref = dt.datetime.strptime(request.POST.get('datarefeicao'), datetimeformat)
         consumo.data_refeicao = dataref
-        consumo.created_by = request.user
+        if pk == 0: # pk = 0 quer dizer que é uma inserção
+            consumo.created_by = request.user
 
         if consumo.data_refeicao.hour >= 7 and consumo.data_refeicao.hour  < 12: 
             consumo.periodo=0
@@ -108,7 +109,6 @@ def inserir(request,pk=0):
         if consumo.data_refeicao.hour >= 0 and consumo.data_refeicao.hour  < 7: 
             consumo.periodo=3
         consumo.save()
+        return redirect('listaRefeicao')
 
-        if consumo.id:
-            context['message'] += "\nREFEIÇÃO ADICIONADA COM SUCESSO"
     return render(request, "inserir.html",context)

@@ -18,17 +18,21 @@
             <form action="" method="post">{% csrf_token %}
                 <div class="row mt-2">
                     <label for="textrefeicao">Refeição</label>
-                    <textarea type="text" id="textrefeicao" name="textrefeicao" rows="8" >{{obj.refeicao}}</textarea>
+                    {%if obj.refeicao%}
+                    <textarea type="text" id="textrefeicao" name="textrefeicao" rows="8" required>{{obj.refeicao}}</textarea>
+                    {%else%}
+                    <textarea type="text" id="textrefeicao" name="textrefeicao" rows="8" required></textarea>
+                    {%endif%}
                 </div>
                 <div class="row mt-2">
                     <label for="datarefeicao">Data da Refeição</label>
-                    <input type="datetime-local" id="datarefeicao" name="datarefeicao" value="{{now}}"><br><br>
+                    <input type="datetime-local" id="datarefeicao" name="datarefeicao" value="{{now}}" required><br><br>
 
                 </div>
                 <hr>
                 <div class="row mt-3">
                     <div class="col-6">
-                        <input class="btn btn-success" type="submit" value="Salvar">
+                        <input class="btn btn-success" type="submit" id="btn_submit"  value="Salvar">
                     </div>
                     {%if obj %}
                     <div class="col-6">
@@ -56,14 +60,29 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
           {%if obj%}
-          <form action="{% url 'deletarRefeicao' obj.id%}" method="post">{% csrf_token %}
-                <input class="btn btn-danger" type="submit" value="DELETAR">         
+          <form action="{% url 'deletarRefeicao' obj.id%}" method="post" id="formdelete">{% csrf_token %}
+            <input class="btn btn-success" type="submit" id="btn_deletar"  value="Deletar">
+                     
         </form>
             {%endif%}
         </div>
       </div>
     </div>
   </div>
+  
+  {% block scripts%}
+  <script>
+        document.getElementById("btn_submit").onclick = function () {
+            //disable
+            if document.getElementById("textrefeicao").value != "" %% document.getElementById("textrefeicao").value != ""{
+              this.disabled = true;
+              this.form.submit();
+            }
+        }
+      </script>
+      {% endblock scripts %}
+
+
 
 
 {% endblock %}

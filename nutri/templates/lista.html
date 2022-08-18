@@ -59,10 +59,10 @@
                         {%endif%}
                         <p class="text-center mt-0 mb-0">{{i.created_by.first_name}}</p>
                         <hr class="mt-0 mb-0">
-                        <p class="text-center mt-0 mb-0 fw-bold text-decoration-underline">
+                        <p class="text-center mt-0 mb-0 fw-bold ">
                             {{i.data_refeicao|date:"H:i"}}
                             {% if request.user.is_authenticated %}
-                            <a href="{% url 'editarRefeicao' i.id %}" class="mt-0 mb-0">E</a>
+                            <a href="{% url 'editarRefeicao' i.id %}" class="mt-0 mb-0">|E|</a>
                             {%endif%}
                         </p>
                         <p class="mt-0 mb-0">{{i.refeicao|linebreaks}}</p>
