@@ -14,10 +14,10 @@ class Consumo (models.Model):
     refeicao = models.TextField()
     periodo = models.CharField(max_length=1, choices=PERIODO,default=0, verbose_name="Periodo")
     data_refeicao = models.DateTimeField(verbose_name="Data da Refeição")
-    created_at = models.DateTimeField(auto_now=True, verbose_name="Criado em.")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Criado em.")
     created_by = models.ForeignKey(User, models.DO_NOTHING, blank = True, null = True, related_name="createdbyclient", verbose_name="Criado por")
     
     def __str__(self):
-        return (f"{self.refeicao} \n {self.data_refeicao} \n {self.created_by.first_name}")
+        return (f"{self.data_refeicao} \n {self.refeicao} \n {self.created_by.first_name} \n ||| {self.created_at} |||")
 
     

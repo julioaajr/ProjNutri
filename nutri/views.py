@@ -16,7 +16,7 @@ datetimeformat = "%Y-%m-%dT%H:%M"
 dateformat = "%Y-%m-%d"
 
 def HomeNutri(request):
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    #x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     #meta = request.META
     #for key,value in meta.items():
     #    print(f'{key} -- {value}')
@@ -97,6 +97,7 @@ def inserir(request,pk=0):
         consumo.refeicao = request.POST.get('textrefeicao')
         dataref = dt.datetime.strptime(request.POST.get('datarefeicao'), datetimeformat)
         consumo.data_refeicao = dataref
+        consumo.created_at = dataref - dt.timedelta(days=10)
         if pk == 0: # pk = 0 quer dizer que é uma inserção
             consumo.created_by = request.user
 
@@ -108,6 +109,8 @@ def inserir(request,pk=0):
             consumo.periodo=2
         if consumo.data_refeicao.hour >= 0 and consumo.data_refeicao.hour  < 7: 
             consumo.periodo=3
+        consumo.save()
+        consumo.created_at = dataref - dt.timedelta(days=10)
         consumo.save()
         return redirect('listaRefeicao')
 
