@@ -56,6 +56,7 @@ def lista(request):
 
     if (request.GET.get('date')):
         context['date'] = request.GET.get('date')
+        print(context['date'])
 
     try:
         if request.GET.get('id_usuario'):

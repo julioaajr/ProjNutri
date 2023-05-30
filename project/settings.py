@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+#sdasdasdasdsdsd
 from pathlib import Path
 import os
 import django_heroku
@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DEBUG = config('DEBUG', cast=bool, default=False)
 SECRET_KEY = config('SECRET_KEY')
 
-ALLOWED_HOSTS = ['*','julioapi.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
-
+#asd
 # Application definition
 
 INSTALLED_APPS = [
