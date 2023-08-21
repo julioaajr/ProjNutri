@@ -18,7 +18,7 @@
     <div class="row ml-auto">
         <form method="get" class="row gy-2 gx-3 align-items-center" action="">
             <div class="col-auto">
-                <input class="form-control" type="date" aria-label="date" name="date" value={{date}} >
+                <input class="form-control" type="date" aria-label="date" name="date" value={{date}} autofocus>
             </div>
             <div class="col-auto">
                 <select class="form-select" name="id_usuario" id="id_usuario" onchange="this.form.submit()">
@@ -33,6 +33,19 @@
                 </select> 
             </div>
             <div class="col-auto">
+                <select class="form-select" name="periodo" id="periodo" onchange="this.form.submit()"> 
+                    <option value="">Todos os periodos</option>
+                    {%for p in periodo%}
+                        {%if p.0 == periododefault%}
+                            <option value={{p.0}} selected>{{p.1}}</option>
+                        {%else%}
+                            <option value={{p.0}}>{{p.1}}</option>
+                        {%endif%}
+                    {%endfor%}
+
+                </select>
+            </div>
+            <div class="col-auto">
                 <a href="{% url 'listaRefeicao' %}" class="form-control btn btn-success btn-sm">Limpar Filtro</a>
             </div>
         </form>
@@ -44,8 +57,8 @@
             <p class="fw-bold"><br>{{dt.grouper}}</p>
         </div>
         {%for i in dt.list%}
-        {%if i.periodo == '0'%}
 
+        {%if i.periodo == '0'%}
         <div class="col-auto m-1 border border-1 border-dark rounded" style="background-color:rgb(146, 196, 206)">
             {%endif%}
             {%if i.periodo == '1'%}

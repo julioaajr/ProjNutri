@@ -14,6 +14,7 @@ from django.contrib.auth.models import User
 
 datetimeformat = "%Y-%m-%dT%H:%M"
 dateformat = "%Y-%m-%d"
+PERIODO = (('0', 'Manhã'),('1', 'Tarde'),('2', 'Noite'),('3', 'Madrugada'))   
 
 def HomeNutri(request):
     #x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -48,7 +49,7 @@ def deletar(request,pk):
 
 def lista(request):
     context={}
-    
+    context['periodo'] = PERIODO
     context['users'] = User.objects.all() #lista de usuarios para escolher
     context['userdefault'] = User() #usuario para manter o parametro selecionado
     context['date']=""
@@ -56,24 +57,29 @@ def lista(request):
 
     if (request.GET.get('date')):
         context['date'] = request.GET.get('date')
-        print(context['date'])
+
+    if (request.GET.get('periodo')):
+        context['periododefault'] = request.GET.get('periodo')
 
     try:
         if request.GET.get('id_usuario'):
             context['userdefault'] = User.objects.get(pk = request.GET.get('id_usuario'))
+
+        if context['userdefault'].id != None: #Se não encontrar o USUARIO RETORNA as refeicoes de todos
+            context['lista'] = Consumo.objects.filter(created_by = context['userdefault'])
+        else:
+            context['lista'] = Consumo.objects.all()
+
+        if request.GET.get('date'): # Se a lista não estiver vazia filtra pela data
+            context['lista'] = context['lista'].filter(data_refeicao__date = request.GET.get('date'))
+        
+        if request.GET.get('periodo'):
+            context['lista'] = context['lista'].filter(periodo = request.GET.get('periodo'))
+
+        if context['lista'] != "": #Ordena a lista
+            context['lista']= context['lista'].filter().order_by("-data_refeicao__date","created_by__first_name","data_refeicao__time")
     except:
         pass
-
-    if context['userdefault'].id != None:
-        context['lista'] = Consumo.objects.filter(created_by = context['userdefault'])
-    else:
-        context['lista'] = Consumo.objects.all()
-
-    if request.GET.get('date'):
-        context['lista'] = context['lista'].filter(data_refeicao__date = request.GET.get('date'))
-
-    if context['lista'] != "":
-        context['lista']= context['lista'].filter().order_by("-data_refeicao__date","data_refeicao__time")
 
     return render(request, 'lista.html',context)
 
