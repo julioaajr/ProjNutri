@@ -22,7 +22,7 @@
             </div>
             <div class="col-auto">
                 <select class="form-select" name="id_usuario" id="id_usuario" onchange="this.form.submit()">
-                    <option value="">Todos</option>
+                    <option value="">Todos as Pessoas</option>
                     {% for u in users%}
                     {%if u.id == userdefault.id%}
                         <option value={{u.id}} selected>{{u.first_name}}</option>
@@ -52,9 +52,10 @@
     </div>
     <hr class="mt-1 mb-0">
     {%for dt in obd%}
-    <div class="row">
-        <div class="col-auto">
-            <p class="fw-bold"><br>{{dt.grouper}}</p>
+    <div class="row"style="background-color:rgb(146, 196, 206)">
+        <div class="col-3 align-items-center">
+            <p class="fw-bold mb-0">{{dt.grouper}}</p>
+            <p class="">{{dt.list.0.created_at|date:"l" }}</p>
         </div>
         {%for i in dt.list%}
 

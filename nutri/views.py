@@ -14,7 +14,8 @@ from django.contrib.auth.models import User
 
 datetimeformat = "%Y-%m-%dT%H:%M"
 dateformat = "%Y-%m-%d"
-PERIODO = (('0', 'Manhã'),('1', 'Tarde'),('2', 'Noite'),('3', 'Madrugada'))   
+PERIODO = (('0', 'Manhã'),('1', 'Tarde'),('2', 'Noite'),('3', 'Madrugada'))
+
 
 def HomeNutri(request):
     #x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
