@@ -55,36 +55,36 @@
     <div class="row">
         <div class="col-auto align-items-center">
             <p class="fw-bold mb-0">{{dt.grouper}}</p>
-            <p class="">{{dt.list.0.created_at|date:"l" }}</p>
+            <p class="">{{dt.list.0.data_refeicao|date:"l" }}</p>
         </div>
         {%for i in dt.list%}
 
         {%if i.periodo == '0'%}
         <div class="col-auto m-1 border border-1 border-dark rounded" style="background-color:rgb(146, 196, 206)">
-            {%endif%}
-            {%if i.periodo == '1'%}
-            <div class="col-auto m-1 border border-1 border-dark rounded" style="background-color:rgb(235, 216, 154)">
+        {%endif%}
+        {%if i.periodo == '1'%}
+        <div class="col-auto m-1 border border-1 border-dark rounded" style="background-color:rgb(235, 216, 154)">
+        {%endif%}
+        {%if i.periodo == '2'%}
+        <div class="col-auto m-1 border border-1 border-dark rounded" style="background-color:rgba(54, 58, 240, 0.425)">
+        {%endif%}
+        {%if i.periodo == '3'%}
+        <div class="col-auto m-1 border border-1 border-dark rounded" style="background-color:rgb(152, 121, 207)">
+        {%endif%}
+            <p class="text-center mt-0 mb-0">{{i.created_by.first_name}}</p>
+            <hr class="mt-0 mb-0">
+            <p class="text-center mt-0 mb-0 fw-bold ">
+                {{i.data_refeicao|date:"H:i"}}
+                {% if request.user.is_authenticated %}
+                <a href="{% url 'editarRefeicao' i.id %}" class="mt-0 mb-0">|E|</a>
                 {%endif%}
-                {%if i.periodo == '2'%}
-                <div class="col-auto m-1 border border-1 border-dark rounded" style="background-color:rgba(54, 58, 240, 0.425)">
-                    {%endif%}
-                    {%if i.periodo == '3'%}
-                    <div class="col-auto m-1 border border-1 border-dark rounded" style="background-color:rgb(152, 121, 207)">
-                        {%endif%}
-                        <p class="text-center mt-0 mb-0">{{i.created_by.first_name}}</p>
-                        <hr class="mt-0 mb-0">
-                        <p class="text-center mt-0 mb-0 fw-bold ">
-                            {{i.data_refeicao|date:"H:i"}}
-                            {% if request.user.is_authenticated %}
-                            <a href="{% url 'editarRefeicao' i.id %}" class="mt-0 mb-0">|E|</a>
-                            {%endif%}
-                        </p>
-                        <p class="mt-0 mb-0">{{i.refeicao|linebreaks}}</p>
+            </p>
+            <p class="mt-0 mb-0">{{i.refeicao|linebreaks}}</p>
 
 
-                    </div>
-                    {%endfor%}
-                </div>
+        </div>
+        {%endfor%}
+    </div>
                 <hr class="mt-0 mb-0">
                 {%empty%}
                 <p class="text-center mt-0 mb-0 fw-bold text-decoration-underline">Sem Refeições cadastradas para
