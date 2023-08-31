@@ -123,3 +123,8 @@ def inserir(request,pk=0):
         return redirect('listaRefeicao')
 
     return render(request, "inserir.html",context)
+
+
+def dashboard(request):
+    context = {}
+    return render(request, "dashboard.html",context)
