@@ -127,4 +127,5 @@ def inserir(request,pk=0):
 
 def dashboard(request):
     context = {}
+    context['qtd_refeicao'] = Consumo.objects.count()
     return render(request, "dashboard.html",context)
