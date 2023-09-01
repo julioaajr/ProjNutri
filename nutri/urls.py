@@ -19,6 +19,6 @@ urlpatterns = [
     path('inserir/', inserir, name ='inserirRefeicao'),
     path('inserir/<int:pk>/', inserir, name ='editarRefeicao'),
     path('deletar/<int:pk>/', deletar, name ='deletarRefeicao'),
-    path('dashboard/', dashboard, name ='dashboard'),
+    path('dashboard/', dashboard, name ='dashboard_nutri'),
     
 ]

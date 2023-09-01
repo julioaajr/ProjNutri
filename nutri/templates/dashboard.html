@@ -415,10 +415,10 @@
                     <div class="col-lg-3 col-sm-6">
                         <div class="card gradient-1">
                             <div class="card-body">
-                                <h3 class="card-title text-white">QTD Refeições</h3>
+                                <h3 class="card-title text-white">Qtd. Refeições</h3>
                                 <div class="d-inline-block">
-                                    <h2 class="text-white">{{qtd_refeicao}}</h2>
-                                    <p class="text-white mb-0">Jan - March 2019</p>
+                                    <h2 class="text-white">{{qtd_consumo}}</h2>
+                                    <p class="text-white mb-0">Último: {{ultimo_consumo|date:"d/m/y"}}</p>
                                 </div>
                                 <span class="float-right display-5 opacity-5"><i class="fa fa-coffee"></i></span>
                             </div>
@@ -427,12 +427,12 @@
                     <div class="col-lg-3 col-sm-6">
                         <div class="card gradient-2">
                             <div class="card-body">
-                                <h3 class="card-title text-white">Net Profit</h3>
+                                <h3 class="card-title text-white">Periodo + Comum</h3>
                                 <div class="d-inline-block">
-                                    <h2 class="text-white">$ 8541</h2>
-                                    <p class="text-white mb-0">Jan - March 2019</p>
+                                    <h2 class="text-white">Qtd. {{periodo_frequente.count}}</h2>
+                                    <p class="text-white mb-0">{{periodo_frequente.periodo}}</p>
                                 </div>
-                                <span class="float-right display-5 opacity-5"><i class="fa fa-money"></i></span>
+                                <span class="float-right display-5 opacity-5"><i class="fa fa-tag"></i></span>
                             </div>
                         </div>
                     </div>
@@ -489,7 +489,7 @@
                                             <div class="w-100 mr-2">
                                                 <h6>Pixel 2</h6>
                                                 <div class="progress" style="height: 6px">
-                                                    <div class="progress-bar bg-danger" style="width: 40%"></div>
+                                                    <div class="progress-bar bg-danger" style="width: {{progresso}}%"></div>
                                                 </div>
                                             </div>
                                             <div class="ml-2 w-100">
@@ -536,7 +536,7 @@
                                         <h4>50</h4>
                                         <h6 class="m-t-10 text-muted">Offline Order <span class="pull-right">50%</span></h6>
                                         <div class="progress mb-3" style="height: 7px">
-                                            <div class="progress-bar bg-success" style="width: 50%;" role="progressbar"><span class="sr-only">50% Order</span>
+                                            <div class="progress-bar bg-success" style="width: 10%;" role="progressbar"><span class="sr-only">50% Order</span>
                                             </div>
                                         </div>
                                     </div>
@@ -1016,3 +1016,100 @@
 </body>
 
 </html>
+
+<script>
+let ctx = document.getElementById("chart_widget_2");
+ctx.height = 280;
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ["2010", "2011", "2012", "2013", "2014", "2015", "2016"],
+        type: 'line',
+        defaultFontFamily: 'Montserrat',
+        datasets: [{
+            data: [5, 15, 57, 12, 85, 10, 50],
+            label: "iPhone X",
+            backgroundColor: '#847DFA',
+            borderColor: '#847DFA',
+            borderWidth: 0.5,
+            pointStyle: 'circle',
+            pointRadius: 5,
+            pointBorderColor: 'transparent',
+            pointBackgroundColor: '#847DFA',
+        }, {
+            label: "Pixel 2",
+            data: [0, 30, 5, 53, 15, 55, 0],
+            backgroundColor: '#a903fc',
+            borderColor: '#a903fc',
+            borderWidth: 0.5,
+            pointStyle: 'circle',
+            pointRadius: 5,
+            pointBorderColor: 'transparent',
+            pointBackgroundColor: '#a903fc',
+        }, {
+            label: "Mi 12",
+            data: [8, 10, 5, 30, 40, 76, 35],
+            backgroundColor: '#F196B0',
+            borderColor: '#F196B0',
+            borderWidth: 0.5,
+            pointStyle: 'circle',
+            pointRadius: 5,
+            pointBorderColor: 'transparent',
+            pointBackgroundColor: '#F196B0',
+        }]
+    },
+    options: {
+        responsive: !0,
+        maintainAspectRatio: false,
+        tooltips: {
+            mode: 'index',
+            titleFontSize: 12,
+            titleFontColor: '#000',
+            bodyFontColor: '#000',
+            backgroundColor: '#fff',
+            titleFontFamily: 'Montserrat',
+            bodyFontFamily: 'Montserrat',
+            cornerRadius: 3,
+            intersect: false,
+        },
+        legend: {
+            display: false,
+            position: 'top',
+            labels: {
+                usePointStyle: true,
+                fontFamily: 'Montserrat',
+            },
+
+
+        },
+        scales: {
+            xAxes: [{
+                display: false,
+                gridLines: {
+                    display: false,
+                    drawBorder: false
+                },
+                scaleLabel: {
+                    display: false,
+                    labelString: 'Month'
+                }
+            }],
+            yAxes: [{
+                display: false,
+                gridLines: {
+                    display: false,
+                    drawBorder: false
+                },
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Value'
+                }
+            }]
+        },
+        title: {
+            display: false,
+        }
+    }
+});
+
+</script>

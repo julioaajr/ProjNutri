@@ -11,10 +11,12 @@ from rest_framework import permissions
 import datetime as dt
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.db.models import Count
 
 datetimeformat = "%Y-%m-%dT%H:%M"
 dateformat = "%Y-%m-%d"
 PERIODO = (('0', 'Manhã'),('1', 'Tarde'),('2', 'Noite'),('3', 'Madrugada'))
+PERIODO2 = ['Manhã','Tarde','Noite','Madrugada']
 
 
 def HomeNutri(request):
@@ -127,5 +129,9 @@ def inserir(request,pk=0):
 
 def dashboard(request):
     context = {}
-    context['qtd_refeicao'] = Consumo.objects.count()
+    context['qtd_consumo'] = Consumo.objects.count()
+    context['ultimo_consumo'] = Consumo.objects.last().data_refeicao
+    context['periodo_frequente'] = Consumo.objects.values("periodo").annotate(count=Count('periodo')).order_by("-count")[0]
+    context['periodo_frequente']['periodo'] = PERIODO[int(context['periodo_frequente']['periodo'])][1]
+    context['progresso'] = '100'
     return render(request, "dashboard.html",context)
