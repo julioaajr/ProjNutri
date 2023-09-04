@@ -411,7 +411,7 @@
         <div class="content-body">
 
             <div class="container-fluid mt-3">
-                <div class="row">
+                <div class="row"><!--LINHA DOS CARDS-->
                     <div class="col-lg-3 col-sm-6">
                         <div class="card gradient-1">
                             <div class="card-body">
@@ -462,7 +462,31 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row"><!--BARRA DE PROGRESSO POR PERIODO-->
+                    <div class="col-lg-12 col-md-12">
+                        <div class="card card-widget">
+                            <div class="card-body">
+                                <h5 class="text-muted">Consumo Overview </h5>
+                                <h2 class="mt-4">{{qtd_consumo}}</h2>
+                                <span>Total Refeições</span>
+                                {%for dash in dashperiodo%}
+                                <div class="mt-4">
+                                    <h6 class="m-t-10">{{dash.periodo}} <span class="pull-right">{{dash.porcentagem}}%</span></h6>
+                                    <div class="progress mb-3" style="height: 7px">
+                                        <div class="progress-bar bg-dark" style="width: {{dash.porcentagem}}%;" role="progressbar"><span class="sr-only">{{dash.porcentagem}}% Order</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                {%endfor%}
+
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+
+                <div class="row"><!--LINHA DO GRAFICOS MONTANHA-->
                     <div class="col-lg-12">
                         <div class="row">
                             <div class="col-12">
@@ -506,9 +530,8 @@
                     </div>
                 </div>
 
-                
 
-                <div class="row">
+                <div class="row"><!--LINHA DOS CARDS OVER VIEW-->
                         <div class="col-lg-6 col-md-12">
                             <div class="card">
                                 <div class="card-body">
@@ -575,7 +598,9 @@
                             </div>
                         </div>
                     </div>
-                
+                </div>
+
+
                 <div class="row">
                     <div class="col-lg-3 col-sm-6">
                         <div class="card">
@@ -627,6 +652,7 @@
                     </div>
 
                 </div>
+
 
                 <div class="row">
                     <div class="col-lg-12">
@@ -759,6 +785,7 @@
                     </div>
                 </div>
 
+
                 <div class="row">
                     <div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6">
 
@@ -866,7 +893,6 @@
                     </div>
                 </div>
 
-                
 
                 <div class="row">
                         <div class="col-lg-3 col-sm-6">

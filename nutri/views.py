@@ -12,6 +12,8 @@ import datetime as dt
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Count
+from .dashboard import *
+
 
 datetimeformat = "%Y-%m-%dT%H:%M"
 dateformat = "%Y-%m-%d"
@@ -65,12 +67,16 @@ def lista(request):
         context['periododefault'] = request.GET.get('periodo')
 
     try:
-        if request.GET.get('id_usuario'):
+        if request.GET.get('id_usuario') and request.GET.get('id_usuario') != 'todos': #se não vier usuário ou se vier 'todos' não ira possuir um default
             context['userdefault'] = User.objects.get(pk = request.GET.get('id_usuario'))
+
+        if(context['userdefault'].id == None and request.GET.get('id_usuario') == None): #não havendo default
+            context['userdefault'] = User.objects.get(pk = request.user.id)
 
         if context['userdefault'].id != None: #Se não encontrar o USUARIO RETORNA as refeicoes de todos
             context['lista'] = Consumo.objects.filter(created_by = context['userdefault'])
-        else:
+
+        if(context['userdefault'].id == None or equest.GET.get('id_usuario') == 'todos'):
             context['lista'] = Consumo.objects.all()
 
         if request.GET.get('date'): # Se a lista não estiver vazia filtra pela data
@@ -129,9 +135,19 @@ def inserir(request,pk=0):
 
 def dashboard(request):
     context = {}
+    context['dashperiodo']=[]
     context['qtd_consumo'] = Consumo.objects.count()
     context['ultimo_consumo'] = Consumo.objects.last().data_refeicao
     context['periodo_frequente'] = Consumo.objects.values("periodo").annotate(count=Count('periodo')).order_by("-count")[0]
     context['periodo_frequente']['periodo'] = PERIODO[int(context['periodo_frequente']['periodo'])][1]
     context['progresso'] = '100'
+
+    context['progresso_consumo'] = Consumo.objects.values("periodo").annotate(count=Count('periodo')).order_by("periodo")
+    for i in context['progresso_consumo']:
+        x = DashPeriodo()
+        x.periodo = PERIODO2[int(i['periodo'])]
+        x.contagem = int(i['count'])
+        x.porcentagem = str(x.contagem/int(context['qtd_consumo'])*100)
+        print(x.porcentagem)
+        context['dashperiodo'].append(x)
     return render(request, "dashboard.html",context)

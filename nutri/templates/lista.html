@@ -22,7 +22,7 @@
             </div>
             <div class="col-auto">
                 <select class="form-select" name="id_usuario" id="id_usuario" onchange="this.form.submit()">
-                    <option value="">Todos as Pessoas</option>
+                    <option value="todos">Todos as Pessoas</option>
                     {% for u in users%}
                     {%if u.id == userdefault.id%}
                         <option value={{u.id}} selected>{{u.first_name}}</option>
