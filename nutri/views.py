@@ -148,6 +148,13 @@ def dashboard(request):
         x.periodo = PERIODO2[int(i['periodo'])]
         x.contagem = int(i['count'])
         x.porcentagem = str(x.contagem/int(context['qtd_consumo'])*100)
-        print(x.porcentagem)
+        if x.periodo == 'Manhã':
+            x.cor ='info'
+        elif x.periodo == 'Tarde':
+            x.cor ='warning'
+        elif x.periodo == 'Noite':
+            x.cor = 'primary'
+        elif x.periodo == 'Madrugada': 
+            x.cor = 'dark'
         context['dashperiodo'].append(x)
     return render(request, "dashboard.html",context)
