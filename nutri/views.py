@@ -147,7 +147,7 @@ def dashboard(request):
         x = DashPeriodo()
         x.periodo = PERIODO2[int(i['periodo'])]
         x.contagem = int(i['count'])
-        x.porcentagem = str(x.contagem/int(context['qtd_consumo'])*100)
+        x.porcentagem = str(format(x.contagem/int(context['qtd_consumo'])*100,'.2f'))
         if x.periodo == 'Manhã':
             x.cor ='info'
         elif x.periodo == 'Tarde':
