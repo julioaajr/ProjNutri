@@ -76,9 +76,9 @@ def lista(request):
         if context['userdefault'].id != None: #Se não encontrar o USUARIO RETORNA as refeicoes de todos
             context['lista'] = Consumo.objects.filter(created_by = context['userdefault'])
 
-        if(context['userdefault'].id == None or equest.GET.get('id_usuario') == 'todos'):
+        if(context['userdefault'].id == None or request.GET.get('id_usuario') == 'todos'):
             context['lista'] = Consumo.objects.all()
-
+        
         if request.GET.get('date'): # Se a lista não estiver vazia filtra pela data
             context['lista'] = context['lista'].filter(data_refeicao__date = request.GET.get('date'))
         
