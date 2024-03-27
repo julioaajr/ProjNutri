@@ -10,12 +10,18 @@ class Presente(models.Model):
     
     @property
     def num_cotas(self):
-        return self.cotas.count()
+        aux = self.cotas.all()
+        soma = 0
+        for i in aux:
+            soma += i.qtd
+        return soma
     
     @property
     def porcentagem(self):
         porcentagem = self.num_cotas / self.qtd * 100
-        return f"{porcentagem:.1f}"
+        print(type(porcentagem))
+        return float(f"{porcentagem:.1f}")
+
     
     
     def __str__(self):
