@@ -15,7 +15,6 @@ class Presente(models.Model):
     @property
     def porcentagem(self):
         porcentagem = self.num_cotas / self.qtd * 100
-        print(porcentagem)
         return f"{porcentagem:.1f}"
     
     
