@@ -20,7 +20,10 @@ class Presente(models.Model):
     def porcentagem(self):
         porcentagem = self.num_cotas / self.qtd * 100
         print(type(porcentagem))
-        return float(f"{porcentagem:.1f}")
+        if porcentagem >= 100:
+            return '100'
+        else:
+            return (f"{porcentagem:.1f}")
 
     
     

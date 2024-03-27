@@ -37,7 +37,7 @@
                                 {%for p in presentes%}
                                 <div class="mt-4">
                                     <h6 class="m-t-10">
-                                        {%if p.porcentagem > 100 %}
+                                        {%if p.porcentagem == '100' %}
                                         <a class="btn btn-primary btn-sm disabled" href="#" role="button">Max Atingido</a>
                                         {% else %}
                                             <a class="btn btn-primary btn-sm" href="#" role="button">Presentear</a>
