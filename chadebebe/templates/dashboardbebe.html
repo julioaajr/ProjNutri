@@ -1,0 +1,207 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    
+    <!-- theme meta -->
+    <meta name="theme-name" content="quixlab" />
+    <title>Quixlab - Bootstrap Admin Dashboard Template by Themefisher.com</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon.png' %}">
+    <!-- Pignose Calender -->
+    <link href="{% static 'plugins/pg-calendar/css/pignose.calendar.min.css' %}" rel="stylesheet">
+    <!-- Chartist -->
+    <link rel="stylesheet" href="{% static 'plugins/chartist/css/chartist.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css' %}">
+    <!-- Custom Stylesheet -->
+    <link href="{% static 'css/style.css'%}" rel="stylesheet">
+</head>
+
+<body>
+
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="">
+                <div class="row"><!--BARRA DE PROGRESSO POR PERIODO-->
+                    <div class="col-lg-12 col-md-12">
+                        <div class="card card-widget">
+                            <div class="card-body">
+                                <h5 class="text-muted">Presentes </h5>
+                                {%for p in presentes%}
+                                <div class="mt-4">
+                                    <h6 class="m-t-10">
+                                        <a class="btn btn-primary btn-sm" href="#" role="button">Presentear</a>
+                                        {{p.nome}}
+                                        <span class="pull-right">{{p.porcentagem}}%</span>
+                                    </h6>
+                                    <div class="progress mb-3" style="height: 6px">
+                                        <div class="progress-bar bg-info" style="width: {{p.porcentagem}}%;" role="progressbar"><span class="sr-only">{{p.porcentagem}}% Order</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                {%endfor%}
+
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+
+            <!-- #/ container -->
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+        
+        
+        <!--**********************************
+            Footer start
+        ***********************************-->
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <script src="{% static 'plugins/common/common.min.js' %}"></script>
+    <script src="{% static 'js/custom.min.js' %}"></script>
+    <script src="{% static 'js/settings.js' %}"></script>
+    <script src="{% static 'js/gleek.js' %}"></script>
+    <script src="{% static 'js/styleSwitcher.js' %}"></script>
+
+
+    <!-- Chartjs -->
+    <script src="{% static 'plugins/chart.js/Chart.bundle.min.js' %}"></script>
+
+    <!-- Circle progress -->
+    <script src="{% static 'plugins/circle-progress/circle-progress.min.js' %}"></script>
+
+    <!-- Datamap -->
+    <script src="{% static 'plugins/d3v3/index.js' %}"></script>
+    <script src="{% static 'plugins/topojson/topojson.min.js' %}"></script>
+    <script src="{% static 'plugins/datamaps/datamaps.world.min.js' %}"></script>
+
+    <!-- Morrisjs -->
+    <script src="{% static 'plugins/raphael/raphael.min.js' %}"></script>
+    <script src="{% static 'plugins/morris/morris.min.js' %}"></script>
+
+    <!-- Pignose Calender -->
+    <script src="{% static 'plugins/moment/moment.min.js' %}"></script>
+    <script src="{% static 'plugins/pg-calendar/js/pignose.calendar.min.js' %}"></script>
+
+    <!-- ChartistJS -->
+    <script src="{% static 'plugins/chartist/js/chartist.min.js' %}"></script>
+    <script src="{% static 'plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js' %}"></script>
+
+
+    <script src="{% static 'js/dashboard/dashboard-1.js' %}"></script>
+</body>
+
+</html>
+
+<script>
+let ctx = document.getElementById("chart_widget_2");
+ctx.height = 280;
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ["2010", "2011", "2012", "2013", "2014", "2015", "2016"],
+        type: 'line',
+        defaultFontFamily: 'Montserrat',
+        datasets: [{
+            data: [5, 15, 57, 12, 85, 10, 50],
+            label: "iPhone X",
+            backgroundColor: '#847DFA',
+            borderColor: '#847DFA',
+            borderWidth: 0.5,
+            pointStyle: 'circle',
+            pointRadius: 5,
+            pointBorderColor: 'transparent',
+            pointBackgroundColor: '#847DFA',
+        }, {
+            label: "Pixel 2",
+            data: [0, 30, 5, 53, 15, 55, 0],
+            backgroundColor: '#a903fc',
+            borderColor: '#a903fc',
+            borderWidth: 0.5,
+            pointStyle: 'circle',
+            pointRadius: 5,
+            pointBorderColor: 'transparent',
+            pointBackgroundColor: '#a903fc',
+        }, {
+            label: "Mi 12",
+            data: [8, 10, 5, 30, 40, 76, 35],
+            backgroundColor: '#F196B0',
+            borderColor: '#F196B0',
+            borderWidth: 0.5,
+            pointStyle: 'circle',
+            pointRadius: 5,
+            pointBorderColor: 'transparent',
+            pointBackgroundColor: '#F196B0',
+        }]
+    },
+    options: {
+        responsive: !0,
+        maintainAspectRatio: false,
+        tooltips: {
+            mode: 'index',
+            titleFontSize: 12,
+            titleFontColor: '#000',
+            bodyFontColor: '#000',
+            backgroundColor: '#fff',
+            titleFontFamily: 'Montserrat',
+            bodyFontFamily: 'Montserrat',
+            cornerRadius: 3,
+            intersect: false,
+        },
+        legend: {
+            display: false,
+            position: 'top',
+            labels: {
+                usePointStyle: true,
+                fontFamily: 'Montserrat',
+            },
+
+
+        },
+        scales: {
+            xAxes: [{
+                display: false,
+                gridLines: {
+                    display: false,
+                    drawBorder: false
+                },
+                scaleLabel: {
+                    display: false,
+                    labelString: 'Month'
+                }
+            }],
+            yAxes: [{
+                display: false,
+                gridLines: {
+                    display: false,
+                    drawBorder: false
+                },
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Value'
+                }
+            }]
+        },
+        title: {
+            display: false,
+        }
+    }
+});
+
+</script>

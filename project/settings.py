@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'nutri',
     'user',
     'pages',
+    'chadebebe',
     'rest_framework',
     'crispy_forms',
     'corsheaders',
