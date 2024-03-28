@@ -7,6 +7,7 @@ class Presente(models.Model):
     nome = models.CharField(max_length=70)
     qtd = models.IntegerField()
     ativo = models.BooleanField(default = True)
+    percent = models.FloatField()
     
     @property
     def num_cotas(self):
@@ -19,7 +20,6 @@ class Presente(models.Model):
     @property
     def porcentagem(self):
         porcentagem = self.num_cotas / self.qtd * 100
-        print(type(porcentagem))
         if porcentagem >= 100:
             return '100'
         else:
