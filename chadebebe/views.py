@@ -31,3 +31,8 @@ def InsereCota(request,pk):
         messages.add_message(request, constants.SUCCESS, 'Seu presente foi salvo com sucesso.')
 
     return redirect('homecha')      
+
+def Relatorio(request):
+    context = {}
+    context['cotas'] = Cota.objects.all()
+    return render(request,'relatorio.html',context)

@@ -1,0 +1,73 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <style>
+
+    </style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    
+    <!-- theme meta -->
+    <meta name="theme-name" content="quixlab" />
+    <title>14/04 Chá da Maitê</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon.png' %}">
+    <!-- Custom Stylesheet -->
+    <link href="{% static 'css/style.css'%}" rel="stylesheet">
+</head>
+
+<body>
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">LISTA DE PRESENTES</h4>
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered zero-configuration">
+                                        <thead>
+                                            <tr>
+                                                <th>Nome</th>
+                                                <th>Presente</th>
+                                                <th>Qtd</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for c in cotas %}
+                                                <tr>
+                                                    <td>{{c.nome}}</td>
+                                                    <td>{{c.presente.nome|slice:":14"}}</td>
+                                                    <td>{{c.qtd}}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    <script src="{% static 'plugins/common/common.min.js'%}"></script>
+    <script src="{% static 'js/custom.min.js'%}"></script>
+    <script src="{% static 'js/settings.js'%}"></script>
+    <script src="{% static 'js/gleek.js'%}"></script>
+    <script src="{% static 'js/styleSwitcher.js'%}"></script>
+
+    <script src="{% static './plugins/tables/js/jquery.dataTables.min.js'%}"></script>
+    <script src="{% static './plugins/tables/js/datatable/dataTables.bootstrap4.min.js'%}"></script>
+    <script src="{% static './plugins/tables/js/datatable-init/datatable-basic.min.js'%}"></script>
+
+</body>
+
+</html>
