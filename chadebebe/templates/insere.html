@@ -28,39 +28,34 @@
         <!--**********************************
             Content body start
         ***********************************-->
-        <div class="">
-                <div class="row-12 mp-2"><!--BARRA DE PROGRESSO POR PERIODO-->
-                    <div class="col-lg-12 col-md-12">
-                        <div class="card card-widget">
-                            <div class="card-body">
-                                <h5 class="text-muted">Presentes </h5>
-                                {%for p in presentes%}
-                                <div class="mt-4">
-                                    <h6 class="m-t-10">
-                                        {%if p.percent == 100 %}
-                                        <a class="btn btn-primary btn-sm disabled" href="#" role="button">Max Atingido</a>
-                                        {% else %}
-
-                                            <a class="btn btn-primary btn-sm" href="{% url 'inserecota' p.id %}" class="mt-0 mb-0">Presentear</a>
-                                        {% endif %}
-                                        {{p.nome}}
-                                        <span class="pull-right">{{p.percent}}%</span>
-                                    </h6>
-                                    <div class="progress mb-3" style="height: 6px">
-                                        <div class="progress-bar bg-info" style="width: {{p.porcentagem}}%;" role="progressbar"><span class="sr-only">{{p.percent}}% Order</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                {%endfor%}
-
-                            </div>
-                        </div>
-                        
+    <div class="">
+        <div class="row-12 mp-2 mt-3"><!--BARRA DE PROGRESSO POR PERIODO-->
+            <div class="col-lg-11 col-md-12">
+                <hr>
+                Presente: {{presente.nome}}
+                <hr>
+                <form action="" method="post">{% csrf_token %}
+                    <input hidden id ="pres" name = "pres" value = {{presente.id}}>
+                    <div class="form-group">
+                        <label>Nome e Sobrenome ou Nome do Casal</label>
+                        <input type="text" class="form-control" placeholder="" id ="nome" name = "nome" required>
                     </div>
-                </div>
-
-
-            <!-- #/ container -->
+                    <div class="form-group">
+                        <label>Quantidade</label>
+                        <select id="inputState" class="form-control" id ="qtd" name = "qtd" required>
+                            <option selected="selected" value = 1>1 pacote / presente</option>
+                            <option value = 2>2 pacote / presente</option>
+                            <option value = 3>3 pacote / presente</option>
+                            <option value = 4>4 pacote / presente</option>
+                            <option value = 5>5 pacote / presente</option>
+                            <option value = 6>6 pacote / presente</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success">Confirmar</button>
+                </form>
+            </div>
+                        
+            
         </div>
         <!--**********************************
             Content body end
