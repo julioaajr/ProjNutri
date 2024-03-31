@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import * 
+from django.contrib.messages import constants
+from django.contrib import messages
 
 # Create your views here.
 
@@ -26,5 +28,6 @@ def InsereCota(request,pk):
         cota.nome = request.POST.get('nome')
         cota.qtd = request.POST.get('qtd')
         cota.save()
+        messages.add_message(request, constants.SUCCESS, 'Seu presente foi salvo com sucesso.')
 
     return redirect('homecha')      

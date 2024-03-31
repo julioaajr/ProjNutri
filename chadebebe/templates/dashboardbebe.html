@@ -4,6 +4,9 @@
 <html lang="en">
 
 <head>
+    <style>
+
+    </style>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -13,11 +16,6 @@
     <title>14/04 Chá da Maitê</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon.png' %}">
-    <!-- Pignose Calender -->
-    <link href="{% static 'plugins/pg-calendar/css/pignose.calendar.min.css' %}" rel="stylesheet">
-    <!-- Chartist -->
-    <link rel="stylesheet" href="{% static 'plugins/chartist/css/chartist.min.css' %}">
-    <link rel="stylesheet" href="{% static 'plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css' %}">
     <!-- Custom Stylesheet -->
     <link href="{% static 'css/style.css'%}" rel="stylesheet">
 </head>
@@ -28,12 +26,18 @@
         <!--**********************************
             Content body start
         ***********************************-->
-        <div class="">
-                <div class="row-12 mp-2"><!--BARRA DE PROGRESSO POR PERIODO-->
+        <div class="" >
+                <div class="row-12"><!--BARRA DE PROGRESSO POR PERIODO-->
+                    {% if messages %}
+                    <br>
+                    {% for message in messages %}
+                    <div class="alert {{ message.tags }} col-lg-12 col-md-12">{{ message }}</div>
+                    {% endfor %}
+                    {% endif %}
                     <div class="col-lg-12 col-md-12">
-                        <div class="card card-widget">
-                            <div class="card-body">
-                                <h5 class="text-muted">Presentes </h5>
+                        <div class="card card-widget" >
+                            <div class="card-body" style="background-color: #ffc0f8;">
+                                <h5 class="">Presentes </h5>
                                 {%for p in presentes%}
                                 <div class="mt-4">
                                     <h6 class="m-t-10">
@@ -46,8 +50,8 @@
                                         {{p.nome}}
                                         <span class="pull-right">{{p.percent}}%</span>
                                     </h6>
-                                    <div class="progress mb-3" style="height: 6px">
-                                        <div class="progress-bar bg-info" style="width: {{p.porcentagem}}%;" role="progressbar"><span class="sr-only">{{p.percent}}% Order</span>
+                                    <div class="progress mb-3 " style="height: 8px">
+                                        <div class="progress-bar bg-info " style="width: {{p.porcentagem}}%;" role="progressbar"><span class="sr-only">{{p.percent}}% Order</span>
                                         </div>
                                     </div>
                                 </div>
@@ -62,22 +66,7 @@
 
             <!-- #/ container -->
         </div>
-        <!--**********************************
-            Content body end
-        ***********************************-->
-        
-        
-        <!--**********************************
-            Footer start
-        ***********************************-->
-    </div>
-    <!--**********************************
-        Main wrapper end
-    ***********************************-->
 
-    <!--**********************************
-        Scripts
-    ***********************************-->
     <script src="{% static 'plugins/common/common.min.js' %}"></script>
     <script src="{% static 'js/custom.min.js' %}"></script>
     <script src="{% static 'js/settings.js' %}"></script>

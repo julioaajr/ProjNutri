@@ -127,7 +127,14 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 20
 }
-
+from django.contrib.messages import constants
+MESSAGE_TAGS = {
+constants.DEBUG: 'alert-primary',
+constants.ERROR: 'alert-danger',
+constants.WARNING: 'alert-warning',
+constants.SUCCESS: 'alert-success',
+constants.INFO: 'alert-info',
+}
 
 LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
